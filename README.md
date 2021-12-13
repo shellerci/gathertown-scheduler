@@ -103,8 +103,11 @@ gathertown-scheduler % wrangler publish
 
 gathertown-scheduler % 
 ```
+Take the URL from the publish output, and paste it into the Gather configuration object you created earlier, and you're good to go!
 
 ## Usage
+
+
 Usage is pretty straightforward. Go to the first object you created, press x to interact, enter the meeting ID, and close out of the window once it's completed. Then just walk over to the hangout object, interact, and launch the meeting. 
 
 ![image](./img/meeting-config-demo.gif) 
