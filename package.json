@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "name": "gathertown-scheduler",
+  "version": "1.0.0",
+  "description": "A cloudflare worker to make google hangout integrations a little easier for gather.town",
+  "main": "index.js",
+  "author": "Sam Heller <sam.heller@customink.com>",
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}
