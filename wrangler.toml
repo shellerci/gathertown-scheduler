@@ -4,16 +4,11 @@ account_id = "4142541b9d64bc393273be37a142734a"
 workers_dev = true
 compatibility_date = "2021-12-13"
 
-[env.dev]
-kv_namespaces = [
-    {binding = "MEETINGS", id="fb003337b1bb43ff8af1ac9cecd24744"}
-]
-
 
 [vars]
 GATHER_GET_ENDPOINT = "https://gather.town/api/getMap"
 GATHER_PUT_ENDPOINT = "https://gather.town/api/setMap"
-HANGOUT_KEY = "True-Grit-Standup"
+HANGOUT_KEY = "Truegrit Standup"
 
 GATHER_MAP_ID = "office-tiny-dark"
 GATHER_SPACE_ID = "f6lrQZVXV49RY2uN\\True Grit Headquarters"

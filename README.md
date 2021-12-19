@@ -38,18 +38,9 @@ type = "javascript"
 account_id = "ThisIsMyAccountIdYouCantHaveIt"
 workers_dev = true
 compatibility_date = "2021-12-13"
-
-kv_namespaces = [
-    {binding = "MEETINGS", id="fb003337b1bb43ff8af1ac9cecd24744"}
-]
-
 ```
 
 If you haven't already, login to Cloudflare and set up a Worker KV store and make a copy of the ID for use in the kv_namespaces binding. 
-
-![image](./img/create-kv-cloudflare.gif) 
-
-
 
 ### Local Variables
 Local variables are also configured in the `wrangler.toml` file under the `[vars]` section. You'll need to :
@@ -69,7 +60,7 @@ GATHER_PUT_ENDPOINT = "https://gather.town/api/setMap"
 
 ![image](./img/id-locations.png) 
 
-### Gather API Key
+### API Keys
 
 To avoid storing the [gather api key](https://gather.town/apiKeys) in a config file, we can make use of [wranglers secrets store](https://developers.cloudflare.com/workers/cli-wrangler/commands#secret) to securely store it while allowing our application to access it at need. 
 ```
@@ -80,16 +71,18 @@ Enter the secret text you'd like assigned to the variable GATHER_API_KEY on the 
 ✨  Success! Uploaded secret GATHER_API_KEY.
 ```
 
+The same needs to be done for the API key used to authenticate requests to the scheduler worker
+```
+gathertown-scheduler % wrangler secret put SCHEDULER_API_KEY                    
+Enter the secret text you'd like assigned to the variable SCHEDULER_API_KEY on the script named gathertown-scheduler:
+████████████████
+🌀  Creating the secret for script name gathertown-scheduler
+```
 
-### Configuration Object
-In your Gather room you'll want to create an object with an embedded website interaction that you'll update later with your worker URL
-
-![image](./img/build-meeting-config-object.gif) 
 
 ### Google Hangout Object
-Finally you need to create the hangout object and set the `Prompt Message` in advanced options to match whatever you've chosen for your `HANGOUT_KEY`
+In the Gather Editor, Open the Object Picker, and click "Upload Now" to create a custom object. The name should be the value of the `HANGOUT_KEY` in your wrangler.toml, with an object interaction type of "External Call" The URL can be any valid url (It will be replaced), and you can use the  `img/google-meet-icon.png` in this repo as the upload image.
 
-![image](./img/create-hangout-caller.gif) 
 
 ## Deployment
 
@@ -105,9 +98,12 @@ gathertown-scheduler %
 ```
 Take the URL from the publish output, and paste it into the Gather configuration object you created earlier, and you're good to go!
 
-## Usage
+## Google Apps Script
+Currently the meeting link is updated via a google apps script from an account with access to the calendar in question. Create a new script at [https://script.google.com/](https://script.google.com/) and copy the contents of `google-apps-script.js` into the new script, replacing the the value of `EVENT_ID` with your [standup meeting id](https://stackoverflow.com/questions/32755413/how-can-i-find-the-event-id-of-my-google-calendar-event) and `API_KEY` with the value of the `SCHEDULER_API_KEY` secret saved earlier via wrangler.
+```
+const EVENT_ID = '<STANDUP_EVENT_ID_GOES_HERE>'
+const API_KEY = '<SCHEDULER_API_KEY GOES HERE>'
+```
+You can test the script by running it, then interacting with the google hangout object and verifying that it now points to the same link as your next scheduled standup.
 
-
-Usage is pretty straightforward. Go to the first object you created, press x to interact, enter the meeting ID, and close out of the window once it's completed. Then just walk over to the hangout object, interact, and launch the meeting. 
-
-![image](./img/meeting-config-demo.gif) 
+Once verified, Click on the stopwatch icon on the left sidebar on the Google scripts page and add a time based trigger to run the script once daily before standup.
