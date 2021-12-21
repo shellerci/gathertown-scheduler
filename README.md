@@ -45,14 +45,14 @@ If you haven't already, login to Cloudflare and set up a Worker KV store and mak
 ### Local Variables
 Local variables are also configured in the `wrangler.toml` file under the `[vars]` section. You'll need to :
 1. Get an API key by going to [https://gather.town/apiKeys](https://gather.town/apiKeys) and generating one
-2. Copy the Space ID from the gather.town map editor url, replacing any %20 encoded characters with spaces and reversing the last seperating `/` to a `\\`. From the screenshot below the value `f6lrQZVXV49RY2uN/True%20Grit%20Headquarters` becomes `f6lrQZVXV49RY2uN\True Grit Headquarters`
+2. Copy the Space ID from the gather.town map editor url, replacing any %20 encoded characters with spaces and reversing the last seperating `/` to a `\\`. From the screenshot below the value `ABCDEFGHIJKLMN/My-Space-Name` becomes `ABCDEFGHIJKLMN\My-Space-Name`
 3. Copy the Map ID from the space name underneath the rooms tab, this is `office-tiny-dark` in the example below.
 4. Choose a unique identifier that will be used to determine which meeting launcher we want to update.
 
 ```
 [vars]
 GATHER_MAP_ID = "office-tiny-dark"
-GATHER_SPACE_ID = "f6lrQZVXV49RY2uN\True Grit Headquarters"
+GATHER_SPACE_ID = "ABCDEFGHIJKLMN\My-Space-Name"
 HANGOUT_KEY = "Unique-Hangout-Identifier"
 GATHER_GET_ENDPOINT = "https://gather.town/api/getMap"
 GATHER_PUT_ENDPOINT = "https://gather.town/api/setMap"
